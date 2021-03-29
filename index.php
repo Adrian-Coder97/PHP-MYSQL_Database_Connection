@@ -19,6 +19,9 @@ if ($_POST) {
     $sentencia_agregar = $pdo->prepare($sql_agregar);
     $sentencia_agregar->execute(array($color, $descripcion)); //en el array van el el mismo orden que irian en los signos de interrogracion 
 
+    /*cerrar la conexion de agregar:*/
+    $sentencia_agregar = null;
+    $pdo =null;
     header("location:index.php"); //recargar la pagina cuando se envien los datos 
 }
 
@@ -97,3 +100,9 @@ if ($_GET) {
 </body>
 
 </html>
+
+<?php
+/*cerrar la conexion de la consulta*/
+$pdo = null;
+$gsent =null;
+?>

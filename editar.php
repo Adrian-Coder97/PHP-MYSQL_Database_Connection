@@ -19,4 +19,8 @@ $sql_editar = "UPDATE colores SET color=?,descripcion=? WHERE id=?"; //los ? son
 $sentencia_editar = $pdo->prepare($sql_editar);
 $sentencia_editar->execute(array($color, $descripcion, $id));//los campos deben corresponder a los simbolos de ?
 
+/*cerrar la conexion de editar*/
+$pdo = null; 
+$sentencia_editar = null;
+
 header("location:index.php");//para que recargue la pagina de index y no nos mande a editar.php
