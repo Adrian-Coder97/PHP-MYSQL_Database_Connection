@@ -58,6 +58,7 @@ if ($_GET) {
                         <?php
                         echo $dato["descripcion"];
                         ?>
+                        <a href="eliminar.php?id=<?php echo $dato["id"]; ?>" class="float-end mx-3"><i class="fas fa-trash"></i></a>
                         <a href="index.php?id=<?php echo $dato["id"]; ?>" class="float-end"><i class="fas fa-edit"></i></a>
                     </div>
                 <?php endforeach ?>
