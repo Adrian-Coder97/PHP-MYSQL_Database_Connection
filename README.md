@@ -164,3 +164,21 @@ Nota: tambien es este formulario se agrega en input hidden que es el que lleva e
                     </form>
                 <?php endif ?>
 ```
+
+------------------------------- Para las eliminaciones: -------------------------------
+1. Crear el boton de eliminar con un icono de fontawesome arriba del de editar:
+```
+<a href="eliminar.php?id=<?php echo $dato["id"]; ?>" class="float-end mx-3"><i class="fas fa-trash"></i></a>
+```
+2. crear eliminar.php con el sig codigo: 
+```
+<?php
+include_once "conexion.php";
+$id = $_GET["id"];
+$sql_eliminar = "DELETE FROM colores WHERE id=?";
+$sentencia_eliminar = $pdo->prepare($sql_eliminar);
+$sentencia_eliminar->execute(array($id));
+
+
+header("location:index.php");
+```
