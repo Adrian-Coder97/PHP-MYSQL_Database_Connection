@@ -19,9 +19,19 @@ if ($_POST) {
     $sentencia_agregar = $pdo->prepare($sql_agregar);
     $sentencia_agregar->execute(array($color, $descripcion)); //en el array van el el mismo orden que irian en los signos de interrogracion 
 
-    header("location:index.php");//recargar la pagina cuando se envien los datos 
+    header("location:index.php"); //recargar la pagina cuando se envien los datos 
 }
 
+
+/*----------------------------------EDITAR ELEMENTO--------------------------------------*/
+if ($_GET) {
+    $id = $_GET["id"];
+    $sql_unico = "SELECT * FROM colores WHERE id=?"; //consulta por id
+    $gsent_unico = $pdo->prepare($sql_unico);
+    $gsent_unico->execute(array($id));
+    $resultado_unico = $gsent_unico->fetch(); //obtener un array 
+    //var_dump($resultado_unico);
+}
 
 ?>
 <!doctype html>
@@ -41,36 +51,47 @@ if ($_POST) {
         <div class="row">
             <!--CONSULTA-->
             <div class="col-md-6">
-                <?php
-                foreach ($resultado as $dato) : //repetir el div por el numero de elemento en nuestra bd
+                <?php foreach ($resultado as $dato) : //repetir el div por el numero de elemento en nuestra bd
                 ?>
-                    <div class="alert alert-<?php
-                                            echo $dato["color"];
-                                            ?> text-uppercase" role="alert">
-                        <?php
-                        echo $dato["color"]; ?>
-                        -
+                    <div class="alert alert-<?php echo $dato["color"]; ?> text-uppercase" role="alert">
+                        <?php echo $dato["color"]; ?>-
                         <?php
                         echo $dato["descripcion"];
                         ?>
+                        <a href="index.php?id=<?php echo $dato["id"]; ?>" class="float-end"><i class="fas fa-edit"></i></a>
                     </div>
-                <?php
-                endforeach
-                ?>
+                <?php endforeach ?>
             </div>
-            <!--INPUT-->
+            <!--********************************************************************FORMULARIO AGREGAR NUEVO************************************************************-->
             <div class="col-md-6 text-center">
-                <h2>Agregar Elementos</h2>
-                <form method="POST">
-                    <input type="text" class="form-control" name="color">
-                    <!--campo name es necesario para que lo reciba POST-->
-                    <input type="text" class="form-control mt-3" name="descripcion">
-                    <button class="btn btn-primary mt-3 align-self-center">Agregar</button>
-                </form>
+                <?php if (!$_GET) : //MOSTRAR EL SIG FORMULARIO CUANDO NO HAIGA METODO GET (CUANDO NO SE HALLA DADO CLIC EN EDITAR) 
+                ?>
+                    <h2>Agregar Elementos</h2>
+                    <form method="POST">
+                        <input type="text" class="form-control" name="color">
+                        <!--campo name es necesario para que lo reciba POST-->
+                        <input type="text" class="form-control mt-3" name="descripcion">
+                        <button class="btn btn-primary mt-3 align-self-center">Agregar</button>
+                    </form>
+                <?php endif ?>
+
+                <!--********************************************************************FORMULARIO EDITAR************************************************************-->
+                <?php if ($_GET) : //MOSTRAR EL SIG FORMULARIO CUANDO SI HAIGA METODO GET (CUANDO SE QUIERA EDITAR) 
+                ?>
+                    <h2>Editar Elementos</h2>
+                    <form method="GET" action="editar.php">
+                        <input type="text" class="form-control" name="color" value="<?php echo $resultado_unico["color"] ?>">
+                        <!--campo name es necesario para que lo reciba POST-->
+                        <input type="text" class="form-control mt-3" name="descripcion" value="<?php echo $resultado_unico["descripcion"] ?>">
+                        <input type="hidden" value="<?php echo $resultado_unico["id"] ?>" name="id">
+                        <button class="btn btn-primary mt-3 align-self-center">Agregar</button>
+                    </form>
+                <?php endif ?>
             </div>
         </div>
     </div>
 
+    <script src="https://kit.fontawesome.com/4eba38762e.js" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js" integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf" crossorigin="anonymous"></script>
 </body>
 
