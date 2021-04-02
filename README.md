@@ -1,4 +1,7 @@
 # PHP-MYSQL_Database_Connection
+![](img/demo.png)
+
+![](img/demo2.png)
 -------------------------------Para la conexion-------------------------------
 ```
 <?php
