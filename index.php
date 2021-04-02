@@ -21,7 +21,7 @@ if ($_POST) {
 
     /*cerrar la conexion de agregar:*/
     $sentencia_agregar = null;
-    $pdo =null;
+    $pdo = null;
     header("location:index.php"); //recargar la pagina cuando se envien los datos 
 }
 
@@ -43,7 +43,6 @@ if ($_GET) {
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6" crossorigin="anonymous">
 
     <title>Hello, world!</title>
@@ -56,13 +55,15 @@ if ($_GET) {
             <div class="col-md-6">
                 <?php foreach ($resultado as $dato) : //repetir el div por el numero de elemento en nuestra bd
                 ?>
-                    <div class="alert alert-<?php echo $dato["color"]; ?> text-uppercase" role="alert">
-                        <?php echo $dato["color"]; ?>-
+                    <div class="alerta alert alert-<?php echo $dato["color"]; ?> text-uppercase text-start" role="alert">
+                        <?php echo $dato["color"]; ?> -
                         <?php
                         echo $dato["descripcion"];
                         ?>
-                        <a href="eliminar.php?id=<?php echo $dato["id"]; ?>" class="float-end mx-3"><i class="fas fa-trash"></i></a>
+                        <a href="eliminar.php?id=<?php echo $dato["id"]; ?>" class="float-end ms-3"><i class="fas fa-trash"></i></a>
                         <a href="index.php?id=<?php echo $dato["id"]; ?>" class="float-end"><i class="fas fa-edit"></i></a>
+
+
                     </div>
                 <?php endforeach ?>
             </div>
@@ -104,5 +105,5 @@ if ($_GET) {
 <?php
 /*cerrar la conexion de la consulta*/
 $pdo = null;
-$gsent =null;
+$gsent = null;
 ?>

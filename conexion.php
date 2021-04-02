@@ -9,6 +9,7 @@ try {
     /*foreach ($pdo->query('SELECT * FROM `colores`') as $row) {
         print_r($row);
     }*/
+    echo "CONECTADO <br>";
 } catch (PDOException $e) {
     print "Error!: " . $e->getMessage() . "<br/>";
     die();
