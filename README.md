@@ -182,3 +182,28 @@ $sentencia_eliminar->execute(array($id));
 
 header("location:index.php");
 ```
+----------------------------CIERRE DE CONEXIONES --------------------------------------
+1. cerrar conexion de consulta al final del html 
+```
+<?php
+$pdo = null;
+$gsent =null;
+?>
+```
+2. cerrar conexion de editar en index.php 
+ ```
+    $sentencia_agregar = null;
+    $pdo =null;
+ ```
+
+3. cerrar conexion de eliminar.php
+ ```
+$pdo = null;
+$sentencia_eliminar = null;
+ ```
+4. cerrar conexion de editar.php
+```
+$pdo = null; 
+$sentencia_editar = null;
+
+ ```
